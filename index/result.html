@@ -17,6 +17,8 @@
   <body>
     <div class="justify-content-center m-5">
       <h1 class="text-center mb-5">Hasil Deteksi Kesalahan Tik</h1>
+
+      <!-- Menampilkan Keseluruhan Artikel Berita yang Dideteksi-->
       {% set words = artikel_berita.split() %} {% for word in words %} {% set
       removePunctuation = word.strip(".,!?") %} {% if removePunctuation in
       salah_tik %}
@@ -25,9 +27,27 @@
       <span>{{ word }}</span>
       {% endif %} {% endfor %}
       <div class="mt-5">
-        {% if typo_word != [] %} {% for index in range(typo_word|length) %}
-        <p>{{ typo_word[index] }}</p>
-        <p>{{ words_correction[index] }}</p>
+        {% if typo_word != [] %} {% for index in range(typo_word|length) %} {%
+        for key, value in typo_word[index].items() %}
+        <!-- Menampilkan Kata Typo -->
+        <p>
+          {{key}}. Kata
+          <b style="color: red">{{value}}</b>
+          adalah typo.
+        </p>
+        {% endfor %}
+
+        <!-- Saran Koreksi Kata -->
+        {% for key, value in words_correction[index].items() %} {% if value !=
+        'Saran koreksi kata yang benar tidak ditemukan.' %}
+        <p>
+          Saran koreksi kata yang benar dari kata
+          <b style="color: red">{{key}}</b>
+          adalah {{', '.join(value)}}.
+        </p>
+        {% else %}
+        <p>{{ value }}</p>
+        {% endif %}{% endfor %}
         <br />
         {% endfor %} {%else%}
         <p>Tidak ditemukan kata typo pada artikel yang dimasukkan.</p>
