@@ -69,9 +69,7 @@ def index():
         for index in range(len(tokens)):
           
             if pred[index] == 'incorrect':
-                # typo_word.append(f"{counter}. Kata {tokens[index].upper()} adalah typo.")
-                typo = tokens[index]
-                typo_word.append({counter: tokens[index]})
+                typo_word.append(f"{counter}. Kata {tokens[index].upper()} adalah typo.")
                 counter += 1
 
                 salah_tik.append(tokens[index])
@@ -79,7 +77,7 @@ def index():
                 correction = tokens[index]
 
                 # Alasan mengapa digunakan n sebesar 15 adalah agar koreksi kata benar yang diinginkan dapat masuk kedalam saran yang dihasilkan.
-                matches = difflib.get_close_matches(correction, df_correction, n=15, cutoff=0.75)
+                matches = difflib.get_close_matches(correction, df_correction, n=15, cutoff=0.85)
                 
                 words = []
                 
@@ -93,14 +91,13 @@ def index():
                                 words.append(matches[idx])
                 
                 if words != []:
-                    typo = tokens[index]
-                    correction = words
-                    # correction = f"Saran koreksi kata yang benar dari kata {tokens[index].upper()} adalah {', '.join(words)}."
-                    words_correction.append({typo: correction})
+                    correction = f"Saran koreksi kata yang benar dari kata {tokens[index].upper()} adalah {', '.join(words)}."
+                    words_correction.append(correction)
+                    print(words_correction)
                 else:
-                    typo = tokens[index]
-                    words_correction.append({typo: 'Saran koreksi kata yang benar tidak ditemukan.'})
-                  
+                    words_correction.append('Saran koreksi kata yang benar tidak ditemukan')
+                    print(words_correction)
+
         
         return render_template('result.html', typo_word = typo_word, words_correction = words_correction, artikel_berita = artikel_berita, salah_tik = salah_tik)
        
