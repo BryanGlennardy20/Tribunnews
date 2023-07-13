@@ -1,2 +1,2 @@
 # Tribunnews
-Tribunnews Deteksi Kesalahan Tik
+Deteksi Kesalahan Tik (Studi Kasus: Tribunnews)
