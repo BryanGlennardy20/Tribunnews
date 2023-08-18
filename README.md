@@ -1,2 +1,2 @@
 # Tribunnews
-Deteksi Kesalahan Tik (Studi Kasus: Tribunnews)
+Link github baru: https://github.com/BryanGlennardy/Tribunnews
